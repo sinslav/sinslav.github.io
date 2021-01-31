@@ -88,11 +88,8 @@
               async function predict() {
                 // predict can take in an image, video or canvas html element
                 const prediction = await model.predict(webcam.canvas);
-                for (let i = 0; i < maxPredictions; i++) {
-                  const classPrediction =
-                          prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-                  labelContainer.childNodes[i].innerHTML = classPrediction;
-                }
+                const noMask = prediction[0].probability < 0.5
+                labelContainer.childNodes[0].innerHTML = noMask ? "<div style='color: red'>No mask</div>" : "<div style='color: green'>OK, seems you got a mask</div>" ;
               }
             </script>
           </div>
